@@ -1,0 +1,208 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  STUDENT
+  AGENT
+  ADMIN
+}
+
+enum AgentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  SUSPENDED
+}
+
+enum RequestStatus {
+  REQUEST_CREATED
+  AGENT_ACCEPTED
+  PARCEL_PHOTO_UPLOADED
+  USER_CONFIRMED
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+  FAILED
+}
+
+model User {
+  id               String    @id @default(cuid())
+  email            String    @unique
+  name             String?
+  registrationNo   String?   @unique
+  hostel           String?
+  profilePhoto     String?
+  role             Role      @default(STUDENT)
+  profileCompleted Boolean   @default(false)
+  suspended        Boolean   @default(false)
+  deletedAt        DateTime?
+  fcmToken         String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  agent         Agent?
+  requests      Request[]      @relation("StudentRequests")
+  notifications Notification[]
+  ratingsGiven  Rating[]       @relation("RaterRatings")
+  auditLogs     AuditLog[]     @relation("AdminAuditLogs")
+
+  @@index([email])
+  @@index([role])
+  @@map("users")
+}
+
+model Agent {
+  id             String      @id @default(cuid())
+  userId         String      @unique
+  collegeIdPhoto String?
+  status         AgentStatus @default(PENDING)
+  avgRating      Float       @default(0)
+  totalRatings   Int         @default(0)
+  deliveryCount  Int         @default(0)
+  failedCount    Int         @default(0)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assignments     RequestAssignment[]
+  ratingsReceived Rating[]            @relation("AgentRatings")
+
+  @@index([status])
+  @@map("agents")
+}
+
+model Request {
+  id             String        @id @default(cuid())
+  studentId      String
+  parcelName     String
+  courierCompany String
+  trackingNumber String?
+  hostel         String
+  rewardAmount   Float
+  status         RequestStatus @default(REQUEST_CREATED)
+  deletedAt      DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  student    User                @relation("StudentRequests", fields: [studentId], references: [id])
+  assignment RequestAssignment?
+  photos     ParcelPhoto[]
+  timeline   RequestTimeline[]
+  otp        OtpVerification?
+  rating     Rating?
+
+  @@index([studentId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("requests")
+}
+
+model RequestAssignment {
+  id         String   @id @default(cuid())
+  requestId  String   @unique
+  agentId    String
+  assignedAt DateTime @default(now())
+
+  request Request @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  agent   Agent   @relation(fields: [agentId], references: [id])
+
+  @@index([agentId])
+  @@map("request_assignments")
+}
+
+model ParcelPhoto {
+  id        String   @id @default(cuid())
+  requestId String
+  url       String
+  fileId    String?
+  createdAt DateTime @default(now())
+
+  request Request @relation(fields: [requestId], references: [id], onDelete: Cascade)
+
+  @@index([requestId])
+  @@map("parcel_photos")
+}
+
+model OtpVerification {
+  id        String   @id @default(cuid())
+  requestId String   @unique
+  otpHash   String
+  expiresAt DateTime
+  verified  Boolean  @default(false)
+  attempts  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  request Request @relation(fields: [requestId], references: [id], onDelete: Cascade)
+
+  @@map("otp_verifications")
+}
+
+model RequestTimeline {
+  id        String        @id @default(cuid())
+  requestId String
+  status    RequestStatus
+  note      String?
+  createdAt DateTime      @default(now())
+
+  request Request @relation(fields: [requestId], references: [id], onDelete: Cascade)
+
+  @@index([requestId])
+  @@map("request_timeline")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  type      String
+  read      Boolean  @default(false)
+  data      Json?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([read])
+  @@map("notifications")
+}
+
+model Rating {
+  id        String   @id @default(cuid())
+  requestId String   @unique
+  agentId   String
+  raterId   String
+  rating    Int
+  review    String?
+  createdAt DateTime @default(now())
+
+  request Request @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  agent   Agent   @relation("AgentRatings", fields: [agentId], references: [id])
+  rater   User    @relation("RaterRatings", fields: [raterId], references: [id])
+
+  @@index([agentId])
+  @@map("ratings")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  adminId   String
+  action    String
+  target    String
+  details   Json?
+  createdAt DateTime @default(now())
+
+  admin User @relation("AdminAuditLogs", fields: [adminId], references: [id])
+
+  @@index([adminId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
