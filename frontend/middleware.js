@@ -1,9 +1,9 @@
-import { auth } from '@/auth';
 import { NextResponse } from 'next/server';
+import { getToken } from 'next-auth/jwt';
 
 const publicRoutes = ['/auth/signin', '/api/auth'];
 
-export default auth((req) => {
+export default async function middleware(req) {
   const { pathname } = req.nextUrl;
 
   // Allow public routes
@@ -22,8 +22,11 @@ export default auth((req) => {
     return NextResponse.next();
   }
 
+  // Use getToken (edge-compatible) instead of auth() wrapper
+  const token = await getToken({ req, secret: process.env.AUTH_SECRET });
+
   // Redirect unauthenticated users to sign in
-  if (!req.auth) {
+  if (!token) {
     const signInUrl = new URL('/auth/signin', req.url);
     signInUrl.searchParams.set('callbackUrl', pathname);
     return NextResponse.redirect(signInUrl);
@@ -35,7 +38,7 @@ export default auth((req) => {
   }
 
   return NextResponse.next();
-});
+}
 
 export const config = {
   matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.png$).*)'],
