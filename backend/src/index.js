@@ -30,7 +30,6 @@ initializeFirebase();
 
 // CORS — must be before helmet so preflight responses get proper headers
 app.use(cors(corsOptions));
-app.options(cors(corsOptions)); // explicit preflight handler for all routes
 
 // Security middleware
 app.use(helmet({
