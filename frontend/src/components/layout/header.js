@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { useState } from 'react';
 import MobileNav from './mobile-nav';
+import NotificationsPopover from './notifications-popover';
 
 export default function Header({ user, role, unreadCount = 0 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -33,14 +34,7 @@ export default function Header({ user, role, unreadCount = 0 }) {
         {/* Right side */}
         <div className="flex items-center gap-3">
           {/* Notifications */}
-          <Button variant="ghost" size="icon" className="relative">
-            <Bell className="h-5 w-5" />
-            {unreadCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
-                {unreadCount > 9 ? '9+' : unreadCount}
-              </span>
-            )}
-          </Button>
+          <NotificationsPopover unreadCount={unreadCount} />
 
           {/* User info */}
           <div className="hidden sm:flex items-center gap-2">
