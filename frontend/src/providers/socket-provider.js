@@ -32,25 +32,9 @@ export default function SocketProvider({ children }) {
       setIsConnected(false);
       console.log('✗ Socket disconnected');
     };
-    const onNewNotification = (data) => {
-      // Show an in-app toast immediately when socket receives a notification
-      toast.info(data.title, { description: data.message });
-
-      // Trigger the native Chrome System Notification
-      if ('Notification' in window && Notification.permission === 'granted') {
-        // We only want to show the system notification if the document is NOT focused (in a background tab)
-        // or if the user explicitly wants them while the app is open. 
-        // We'll show it anyway as per user request for "Chrome notifications"
-        new Notification(data.title, { 
-          body: data.message,
-          icon: '/favicon.ico'
-        });
-      }
-    };
 
     s.on('connect', onConnect);
     s.on('disconnect', onDisconnect);
-    s.on('NEW_NOTIFICATION', onNewNotification);
 
     if (s.connected) setIsConnected(true);
 
@@ -60,7 +44,6 @@ export default function SocketProvider({ children }) {
     return () => {
       s.off('connect', onConnect);
       s.off('disconnect', onDisconnect);
-      s.off('NEW_NOTIFICATION', onNewNotification);
       disconnectSocket();
     };
   }, []);
@@ -78,6 +61,23 @@ async function initializeFirebaseMessaging() {
     if (!app) return;
 
     if (!('Notification' in window)) return;
+
+    // Listen for FCM foreground messages
+    onForegroundMessage((payload) => {
+      const { title, body } = payload.notification || {};
+      if (title) {
+        // Show in-app toast
+        toast.info(title, { description: body });
+        
+        // ALSO trigger the native Chrome System Notification directly from FCM!
+        if (Notification.permission === 'granted') {
+          new Notification(title, { 
+            body: body,
+            icon: '/favicon.ico'
+          });
+        }
+      }
+    });
 
     const saveToken = async () => {
       const fcmToken = await requestNotificationPermission();
