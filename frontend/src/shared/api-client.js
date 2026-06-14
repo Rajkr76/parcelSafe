@@ -34,7 +34,13 @@ apiClient.interceptors.response.use(
       }
     }
     const message = error.response?.data?.error || error.message || 'Something went wrong';
-    toast.error("use college email id like (abcd12232@vitbhopal.ac.in)");
+    
+    if (error.response?.status === 413) {
+      toast.error("File is too large! Please choose a smaller photo (under 4.5MB).");
+    } else {
+      toast.error(message);
+    }
+    
     return Promise.reject(new Error(message));
   }
 );
