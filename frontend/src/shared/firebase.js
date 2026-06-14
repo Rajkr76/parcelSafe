@@ -38,14 +38,31 @@ export async function requestNotificationPermission() {
   if (!messaging) return null;
 
   try {
+    // 1. Check if browser supports service workers and push
+    if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+      console.warn('Push messaging is not supported in this browser (or it is not HTTPS).');
+      return null;
+    }
+
+    // 2. Request Permission
     const permission = await Notification.requestPermission();
     if (permission !== 'granted') {
       console.log('Notification permission denied');
       return null;
     }
 
+    // 3. Explicitly register the Service Worker
+    // This is much more reliable than letting Firebase guess
+    const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+    await navigator.serviceWorker.ready;
+
+    // 4. Get FCM Token
     const vapidKey = process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY;
-    const token = await getToken(messaging, { vapidKey });
+    const token = await getToken(messaging, { 
+      vapidKey,
+      serviceWorkerRegistration: registration
+    });
+    
     return token;
   } catch (err) {
     console.error('Error getting FCM token:', err);
