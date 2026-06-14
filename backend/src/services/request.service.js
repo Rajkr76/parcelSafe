@@ -41,7 +41,7 @@ async function createRequest(studentId, data, io) {
 
   // Broadcast to all agents that a new request is available
   if (io) {
-    io.emit('REQUEST_CREATED', {
+    io.to('role:AGENT').emit('REQUEST_CREATED', {
       id: request.id,
       parcelName: request.parcelName,
       hostel: request.hostel,
@@ -50,6 +50,23 @@ async function createRequest(studentId, data, io) {
       studentName: request.student.name,
       createdAt: request.createdAt,
     });
+  }
+
+  // Fetch all approved agents to send notifications
+  const agents = await prisma.agent.findMany({
+    where: { status: 'APPROVED' },
+    select: { userId: true },
+  });
+
+  // Send notifications to all approved agents
+  for (const agent of agents) {
+    await createNotification({
+      userId: agent.userId,
+      title: 'New Parcel Request',
+      message: `A new request for ${request.parcelName} at ${request.hostel} is available.`,
+      type: 'REQUEST_CREATED',
+      data: { requestId: request.id },
+    }, io);
   }
 
   return { request, otp }; // Return plain OTP to show to student once
