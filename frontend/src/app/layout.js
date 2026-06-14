@@ -7,6 +7,13 @@ import SocketProvider from '@/providers/socket-provider';
 export const metadata = {
   title: 'ParcelSafe — Campus Parcel Pickup & Delivery',
   description: 'Request verified student agents to collect your parcels from the campus parcel center and deliver them to your hostel.',
+  manifest: '/manifest.json',
+  themeColor: '#000000',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'ParcelSafe',
+  },
 };
 
 export default function RootLayout({ children }) {

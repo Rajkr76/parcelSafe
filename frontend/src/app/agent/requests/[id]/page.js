@@ -171,7 +171,6 @@ export default function AgentRequestDetailPage() {
               id="camera-upload"
               type="file" 
               accept="image/*" 
-              capture="environment" 
               onChange={handlePhotoUpload} 
               className="absolute w-0 h-0 opacity-0" 
               disabled={uploading}
