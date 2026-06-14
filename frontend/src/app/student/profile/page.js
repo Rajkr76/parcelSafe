@@ -5,8 +5,8 @@ import { useSession } from 'next-auth/react';
 import { User } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import LoadingSkeleton from '@/components/shared/loading-skeleton';
-import apiClient from '@/lib/api-client';
-import { formatDate } from '@/lib/utils';
+import apiClient from '@/shared/api-client';
+import { formatDate } from '@/shared/utils';
 
 export default function StudentProfilePage() {
   const { data: session } = useSession();

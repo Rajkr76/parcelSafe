@@ -1,5 +1,5 @@
-import { formatDateTime, getStatusColor, getStatusLabel } from '@/lib/utils';
-import { cn } from '@/lib/utils';
+import { formatDateTime, getStatusColor, getStatusLabel } from '@/shared/utils';
+import { cn } from '@/shared/utils';
 import {
   Package, UserCheck, Camera, CheckCircle,
   Truck, PackageCheck, XCircle, AlertTriangle

@@ -10,8 +10,8 @@ import { Badge } from '@/components/ui/badge';
 import LoadingSkeleton from '@/components/shared/loading-skeleton';
 import EmptyState from '@/components/shared/empty-state';
 import ErrorState from '@/components/shared/error-state';
-import apiClient from '@/lib/api-client';
-import { formatDateTime } from '@/lib/utils';
+import apiClient from '@/shared/api-client';
+import { formatDateTime } from '@/shared/utils';
 
 const ACTIONS = [
   'AGENT_APPROVED', 'AGENT_REJECTED', 'AGENT_SUSPENDED',

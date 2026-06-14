@@ -11,8 +11,8 @@ import StatusBadge from '@/components/shared/status-badge';
 import RatingStars from '@/components/shared/rating-stars';
 import LoadingSkeleton from '@/components/shared/loading-skeleton';
 import ErrorState from '@/components/shared/error-state';
-import apiClient from '@/lib/api-client';
-import { formatDate, formatDateTime } from '@/lib/utils';
+import apiClient from '@/shared/api-client';
+import { formatDate, formatDateTime } from '@/shared/utils';
 import { toast } from 'sonner';
 
 export default function AdminAgentDetailPage() {

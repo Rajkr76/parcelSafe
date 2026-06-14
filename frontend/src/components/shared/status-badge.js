@@ -1,4 +1,4 @@
-import { cn, getStatusColor, getStatusLabel } from '@/lib/utils';
+import { cn, getStatusColor, getStatusLabel } from '@/shared/utils';
 
 export default function StatusBadge({ status, className }) {
   return (

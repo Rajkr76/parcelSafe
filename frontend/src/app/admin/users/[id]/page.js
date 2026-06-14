@@ -11,8 +11,8 @@ import { Badge } from '@/components/ui/badge';
 import StatusBadge from '@/components/shared/status-badge';
 import LoadingSkeleton from '@/components/shared/loading-skeleton';
 import ErrorState from '@/components/shared/error-state';
-import apiClient from '@/lib/api-client';
-import { formatDate, formatDateTime } from '@/lib/utils';
+import apiClient from '@/shared/api-client';
+import { formatDate, formatDateTime } from '@/shared/utils';
 
 export default function AdminUserDetailPage() {
   const { id } = useParams();

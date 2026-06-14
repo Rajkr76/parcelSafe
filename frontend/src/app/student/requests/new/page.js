@@ -10,8 +10,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { HOSTELS, COURIER_COMPANIES } from '@/lib/constants';
-import apiClient from '@/lib/api-client';
+import { HOSTELS, COURIER_COMPANIES } from '@/shared/constants';
+import apiClient from '@/shared/api-client';
 import { toast } from 'sonner';
 import Link from 'next/link';
 

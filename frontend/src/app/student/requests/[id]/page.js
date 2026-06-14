@@ -13,11 +13,11 @@ import Timeline from '@/components/shared/timeline';
 import RatingStars from '@/components/shared/rating-stars';
 import LoadingSkeleton from '@/components/shared/loading-skeleton';
 import ErrorState from '@/components/shared/error-state';
-import apiClient from '@/lib/api-client';
-import { formatDateTime } from '@/lib/utils';
+import apiClient from '@/shared/api-client';
+import { formatDateTime } from '@/shared/utils';
 import { toast } from 'sonner';
 import { useState, useEffect, useCallback } from 'react';
-import { getSocket } from '@/lib/socket';
+import { getSocket } from '@/shared/socket';
 
 export default function StudentRequestDetailPage() {
   const { id } = useParams();

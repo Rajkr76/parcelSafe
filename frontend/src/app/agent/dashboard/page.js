@@ -9,11 +9,11 @@ import RatingStars from '@/components/shared/rating-stars';
 import LoadingSkeleton from '@/components/shared/loading-skeleton';
 import ErrorState from '@/components/shared/error-state';
 import EmptyState from '@/components/shared/empty-state';
-import apiClient from '@/lib/api-client';
-import { formatRelativeTime } from '@/lib/utils';
+import apiClient from '@/shared/api-client';
+import { formatRelativeTime } from '@/shared/utils';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { getSocket } from '@/lib/socket';
+import { getSocket } from '@/shared/socket';
 
 export default function AgentDashboard() {
   const queryClient = useQueryClient();

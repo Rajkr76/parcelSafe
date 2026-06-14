@@ -6,7 +6,7 @@ import { BarChart3, Clock, TrendingUp, Percent, MapPin, Award } from 'lucide-rea
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import LoadingSkeleton from '@/components/shared/loading-skeleton';
 import ErrorState from '@/components/shared/error-state';
-import apiClient from '@/lib/api-client';
+import apiClient from '@/shared/api-client';
 
 export default function AdminAnalyticsPage() {
   const { data, isLoading, isError, refetch } = useQuery({

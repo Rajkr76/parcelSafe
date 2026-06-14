@@ -12,8 +12,8 @@ import RatingStars from '@/components/shared/rating-stars';
 import LoadingSkeleton from '@/components/shared/loading-skeleton';
 import EmptyState from '@/components/shared/empty-state';
 import ErrorState from '@/components/shared/error-state';
-import apiClient from '@/lib/api-client';
-import { formatDate } from '@/lib/utils';
+import apiClient from '@/shared/api-client';
+import { formatDate } from '@/shared/utils';
 import { toast } from 'sonner';
 
 export default function AdminAgentsPage() {

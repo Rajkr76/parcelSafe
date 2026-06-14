@@ -9,8 +9,8 @@ import StatusBadge from '@/components/shared/status-badge';
 import LoadingSkeleton from '@/components/shared/loading-skeleton';
 import EmptyState from '@/components/shared/empty-state';
 import ErrorState from '@/components/shared/error-state';
-import apiClient from '@/lib/api-client';
-import { formatRelativeTime } from '@/lib/utils';
+import apiClient from '@/shared/api-client';
+import { formatRelativeTime } from '@/shared/utils';
 
 export default function StudentRequestsPage() {
   const { data, isLoading, isError, refetch } = useQuery({

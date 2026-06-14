@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils';
 
 const Select = React.forwardRef(function Select({ className, children, ...props }, ref) {
   return (

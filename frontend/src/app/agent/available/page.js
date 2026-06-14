@@ -9,12 +9,12 @@ import { Select } from '@/components/ui/select';
 import LoadingSkeleton from '@/components/shared/loading-skeleton';
 import EmptyState from '@/components/shared/empty-state';
 import ErrorState from '@/components/shared/error-state';
-import apiClient from '@/lib/api-client';
-import { formatRelativeTime } from '@/lib/utils';
-import { HOSTELS } from '@/lib/constants';
+import apiClient from '@/shared/api-client';
+import { formatRelativeTime } from '@/shared/utils';
+import { HOSTELS } from '@/shared/constants';
 import { toast } from 'sonner';
 import { useState, useEffect } from 'react';
-import { getSocket } from '@/lib/socket';
+import { getSocket } from '@/shared/socket';
 
 export default function AvailableRequestsPage() {
   const queryClient = useQueryClient();

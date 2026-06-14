@@ -6,8 +6,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import RatingStars from '@/components/shared/rating-stars';
 import StatusBadge from '@/components/shared/status-badge';
 import LoadingSkeleton from '@/components/shared/loading-skeleton';
-import apiClient from '@/lib/api-client';
-import { formatDate } from '@/lib/utils';
+import apiClient from '@/shared/api-client';
+import { formatDate } from '@/shared/utils';
 
 export default function AgentProfilePage() {
   const { data, isLoading } = useQuery({

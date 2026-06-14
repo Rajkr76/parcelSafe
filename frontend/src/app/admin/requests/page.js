@@ -10,9 +10,9 @@ import StatusBadge from '@/components/shared/status-badge';
 import LoadingSkeleton from '@/components/shared/loading-skeleton';
 import EmptyState from '@/components/shared/empty-state';
 import ErrorState from '@/components/shared/error-state';
-import apiClient from '@/lib/api-client';
-import { formatDate } from '@/lib/utils';
-import { REQUEST_STATUSES } from '@/lib/constants';
+import apiClient from '@/shared/api-client';
+import { formatDate } from '@/shared/utils';
+import { REQUEST_STATUSES } from '@/shared/constants';
 
 export default function AdminRequestsPage() {
   const [search, setSearch] = useState('');

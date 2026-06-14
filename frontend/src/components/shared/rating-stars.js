@@ -1,5 +1,5 @@
 import { Star } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils';
 
 export default function RatingStars({ rating, size = 'sm', showValue = true, interactive = false, onChange }) {
   const stars = [1, 2, 3, 4, 5];

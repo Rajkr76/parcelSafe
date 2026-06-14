@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils';
 import { X, Package, LayoutDashboard, ListChecks, History, User, Users, Shield, BarChart3, FileText, Truck, ClipboardList } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 

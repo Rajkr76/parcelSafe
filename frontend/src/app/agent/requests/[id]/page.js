@@ -13,10 +13,10 @@ import StatusBadge from '@/components/shared/status-badge';
 import Timeline from '@/components/shared/timeline';
 import LoadingSkeleton from '@/components/shared/loading-skeleton';
 import ErrorState from '@/components/shared/error-state';
-import apiClient from '@/lib/api-client';
-import { formatDateTime } from '@/lib/utils';
+import apiClient from '@/shared/api-client';
+import { formatDateTime } from '@/shared/utils';
 import { toast } from 'sonner';
-import { getSocket } from '@/lib/socket';
+import { getSocket } from '@/shared/socket';
 
 export default function AgentRequestDetailPage() {
   const { id } = useParams();

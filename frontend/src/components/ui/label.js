@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/utils';
 
 const Label = React.forwardRef(function Label({ className, ...props }, ref) {
   return (

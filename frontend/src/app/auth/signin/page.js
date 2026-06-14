@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import apiClient from '@/lib/api-client';
+import apiClient from '@/shared/api-client';
 import { toast } from 'sonner';
 
 export default function SignInPage() {

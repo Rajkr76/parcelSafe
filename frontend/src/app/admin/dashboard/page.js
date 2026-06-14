@@ -6,7 +6,7 @@ import { Users, Shield, Package, CheckCircle, XCircle, Clock } from 'lucide-reac
 import { Card, CardContent } from '@/components/ui/card';
 import LoadingSkeleton from '@/components/shared/loading-skeleton';
 import ErrorState from '@/components/shared/error-state';
-import apiClient from '@/lib/api-client';
+import apiClient from '@/shared/api-client';
 
 export default function AdminDashboard() {
   const { data, isLoading, isError, refetch } = useQuery({

@@ -1,9 +1,9 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { connectSocket, disconnectSocket, getSocket } from '@/lib/socket';
-import { initializeFirebase, requestNotificationPermission, onForegroundMessage } from '@/lib/firebase';
-import apiClient from '@/lib/api-client';
+import { connectSocket, disconnectSocket, getSocket } from '@/shared/socket';
+import { initializeFirebase, requestNotificationPermission, onForegroundMessage } from '@/shared/firebase';
+import apiClient from '@/shared/api-client';
 import { toast } from 'sonner';
 
 const SocketContext = createContext(null);

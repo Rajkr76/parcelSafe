@@ -9,8 +9,8 @@ import LoadingSkeleton from '@/components/shared/loading-skeleton';
 import EmptyState from '@/components/shared/empty-state';
 import ErrorState from '@/components/shared/error-state';
 import RatingStars from '@/components/shared/rating-stars';
-import apiClient from '@/lib/api-client';
-import { formatDate } from '@/lib/utils';
+import apiClient from '@/shared/api-client';
+import { formatDate } from '@/shared/utils';
 
 export default function AgentDeliveriesPage() {
   const { data, isLoading, isError, refetch } = useQuery({
