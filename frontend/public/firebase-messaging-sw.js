@@ -14,12 +14,7 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage((payload) => {
-  const { title, body, icon } = payload.notification || {};
-  self.registration.showNotification(title || 'ParcelSafe', {
-    body: body || 'You have a new notification',
-    icon: icon || '/favicon.ico',
-    badge: '/favicon.ico',
-    data: payload.data,
-  });
-});
+// Firebase SDK automatically handles background messages that contain a 'notification' payload.
+// We do not need to call messaging.onBackgroundMessage() manually unless we want to handle
+// data-only payloads. Since the backend sends 'notification' payloads, Firebase will
+// automatically display the browser notification when the app is in the background or closed.
