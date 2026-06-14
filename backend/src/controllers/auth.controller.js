@@ -10,7 +10,7 @@ async function syncUser(req, res, next) {
   try {
     const { email, name, image } = req.body;
 
-    if (!email.endsWith("@vitbhopal.ac.in")) {
+    if (!email.endsWith(["@vitbhopal.ac.in ","@gmail.com"])) {
   return res.status(403).json({
     message: "Only VIT Bhopal email addresses are allowed",
   });

@@ -28,11 +28,14 @@ app.set('io', io);
 // Initialize Firebase Admin SDK
 initializeFirebase();
 
+// CORS — must be before helmet so preflight responses get proper headers
+app.use(cors(corsOptions));
+app.options(cors(corsOptions)); // explicit preflight handler for all routes
+
 // Security middleware
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
 }));
-app.use(cors(corsOptions));
 app.use(globalLimiter);
 
 // Body parsing

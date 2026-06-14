@@ -12,7 +12,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({user}){
       const email = user.email?.toLowerCase();
-      if(!email?.endsWith("@vitbhopal.ac.in")){
+      if(!email?.endsWith(["@vitbhopal.ac.in ","@gmail.com"])){
         return false;
       }
       return true;

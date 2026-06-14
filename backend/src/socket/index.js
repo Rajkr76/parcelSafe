@@ -10,7 +10,7 @@ const logger = require('../utils/logger');
 function initializeSocket(httpServer) {
   const io = new Server(httpServer, {
     cors: {
-      origin: [env.FRONTEND_URL, 'http://localhost:3000'],
+      origin: [env.FRONTEND_URL?.replace(/\/+$/, ''), 'http://localhost:3000'],
       credentials: true,
     },
     pingTimeout: 60000,
