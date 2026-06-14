@@ -51,17 +51,15 @@ export async function requestNotificationPermission() {
       return null;
     }
 
-    // 3. Explicitly register the Service Worker
-    // This is much more reliable than letting Firebase guess
-    const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
-    await navigator.serviceWorker.ready;
-
-    // 4. Get FCM Token
+    // 3. Get FCM Token
     const vapidKey = process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY;
-    const token = await getToken(messaging, { 
-      vapidKey,
-      serviceWorkerRegistration: registration
-    });
+    if (!vapidKey) {
+      console.error('CRITICAL ERROR: NEXT_PUBLIC_FIREBASE_VAPID_KEY is missing!');
+      return null;
+    }
+    
+    // We let Firebase handle the SW registration natively to prevent conflicts
+    const token = await getToken(messaging, { vapidKey });
     
     return token;
   } catch (err) {
