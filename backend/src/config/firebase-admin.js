@@ -42,8 +42,6 @@ async function sendPushNotification(fcmToken, title, body, data = {}) {
         notification: {
           title,
           body,
-          icon: '/icon-192.png',
-          badge: '/icon-72.png',
         },
       },
     };
