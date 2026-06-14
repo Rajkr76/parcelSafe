@@ -32,6 +32,7 @@ initializeFirebase();
 app.use(cors(corsOptions));
 
 // Security middleware
+app.set('trust proxy', 1); // Trust first proxy (Render load balancer)
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
 }));

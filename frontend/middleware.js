@@ -16,6 +16,8 @@ export default auth((req) => {
     pathname.startsWith('/_next') ||
     pathname.startsWith('/favicon') ||
     pathname.startsWith('/firebase-messaging-sw.js') ||
+    pathname.startsWith('/manifest.json') ||
+    pathname.startsWith('/icon.svg') ||
     pathname.endsWith('.png') ||
     pathname.endsWith('.ico')
   ) {
