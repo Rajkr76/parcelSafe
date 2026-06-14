@@ -58,8 +58,22 @@ export async function requestNotificationPermission() {
       return null;
     }
     
-    // We let Firebase handle the SW registration natively to prevent conflicts
-    const token = await getToken(messaging, { vapidKey });
+    // We explicitly register the service worker to prevent AbortErrors where Firebase
+    // fails to locate it automatically or tries to get a token before it's ready.
+    let registration;
+    try {
+      registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+      await navigator.serviceWorker.ready; // CRITICAL: Wait for SW to be fully active
+      console.log('Service Worker successfully registered and ready.');
+    } catch (swErr) {
+      console.error('CRITICAL ERROR: Failed to register service worker:', swErr);
+      return null;
+    }
+
+    const token = await getToken(messaging, { 
+      vapidKey,
+      serviceWorkerRegistration: registration,
+    });
     
     return token;
   } catch (err) {
