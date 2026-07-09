@@ -11,6 +11,15 @@ function initializeFirebase() {
  try {
   
   let serviceAccount;
+  console.log(
+  "FIREBASE_SERVICE_ACCOUNT_JSON exists:",
+  !!process.env.FIREBASE_SERVICE_ACCOUNT_JSON
+);
+
+console.log(
+  "FIREBASE_SERVICE_ACCOUNT_PATH:",
+  process.env.FIREBASE_SERVICE_ACCOUNT_PATH
+);
 
     if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
   serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
