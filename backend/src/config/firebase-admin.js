@@ -9,8 +9,21 @@ function initializeFirebase() {
   if (firebaseApp) return firebaseApp;
 
  try {
-    const serviceAccountPath = path.resolve(process.cwd(), env.FIREBASE_SERVICE_ACCOUNT_PATH);
-    const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
+  
+  let serviceAccount;
+
+    if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
+  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
+} else {
+  const serviceAccountPath = path.resolve(
+    process.cwd(),
+    process.env.FIREBASE_SERVICE_ACCOUNT_PATH
+  );
+
+  serviceAccount = JSON.parse(
+    fs.readFileSync(serviceAccountPath, "utf8")
+  );
+}
 
     serviceAccount.private_key =
       serviceAccount.private_key.replace(/\\n/g, '\n');
