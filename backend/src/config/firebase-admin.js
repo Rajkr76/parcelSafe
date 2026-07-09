@@ -9,9 +9,8 @@ function initializeFirebase() {
   if (firebaseApp) return firebaseApp;
 
  try {
-    const serviceAccount = JSON.parse(
-      env.FIREBASE_SERVICE_ACCOUNT_PATH
-    );
+    const serviceAccountPath = path.resolve(process.cwd(), env.FIREBASE_SERVICE_ACCOUNT_PATH);
+    const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
 
     serviceAccount.private_key =
       serviceAccount.private_key.replace(/\\n/g, '\n');
@@ -22,7 +21,7 @@ function initializeFirebase() {
     console.log('✓ Firebase Admin SDK initialized');
   } catch (error) {
     console.warn('⚠ Firebase service account not found. Push notifications will be disabled.');
-    console.warn(`  Expected path: ${serviceAccountPath}`);
+    console.warn(`  Check FIREBASE_SERVICE_ACCOUNT_PATH environment variable. Error: ${error.message}`);
   }
 
   return firebaseApp;
