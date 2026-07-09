@@ -9,6 +9,9 @@ export const metadata = {
   description: 'Request verified student agents to collect your parcels from the campus parcel center and deliver them to your hostel.',
   manifest: '/manifest.json',
   themeColor: '#000000',
+  verification: {
+    google: 'f1QxOtvbj-n5_IhqfxS8eOGhxUHKI2InoNIhK4JXLJE', // Paste your exact content code string here
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
